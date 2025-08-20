@@ -5,14 +5,14 @@ const mockProducts = [
     id: 1,
     name: "Lámpara Aurora",
     description: "Diseño minimalista con luz cálida.",
-    price: 120,
+    price: 85,
     image: "https://picsum.photos/400/300?random=1",
   },
   {
     id: 2,
     name: "Lámpara Orbital",
     description: "Estilo futurista con acabados metálicos.",
-    price: 150,
+    price: 70,
     image: "https://picsum.photos/400/300?random=2",
   },
   {
