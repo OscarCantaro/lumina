@@ -7,7 +7,7 @@ type Props = {
 };
 
 export default function ProductCard({
-  id,
+  //id,
   name,
   description,
   price,
