@@ -8,7 +8,7 @@ export default function Navbar() {
     <nav className="bg-gray-900 text-white py-4 px-6 fixed top-0 left-0 w-full z-50 shadow-md">
       <div className="flex justify-between items-center">
         {/* Logo */}
-        <h1 className="text-2xl font-extrabold tracking-wide">LUMINA</h1>
+        <h1 className="text-2xl font-extrabold tracking-wide">🏮 LUMINA</h1>
 
         {/* Links desktop */}
         <ul className="hidden md:flex gap-6">

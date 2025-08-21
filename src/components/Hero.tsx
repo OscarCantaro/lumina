@@ -2,11 +2,16 @@ import { useEffect, useRef } from "react";
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
+  const radiusRef = useRef(150); // tamaño base del círculo
+  const increasingRef = useRef(true);
 
   useEffect(() => {
     const hero = heroRef.current;
     if (!hero) return;
 
+    let animationFrame: number;
+
+    // Efecto linterna que sigue el mouse o el dedo
     const handleMove = (e: MouseEvent | TouchEvent) => {
       let x: number, y: number;
 
@@ -22,12 +27,34 @@ export default function Hero() {
       hero.style.setProperty("--y", `${y}px`);
     };
 
+    // Animación del pulso (cambia el radio)
+    const pulse = () => {
+      if (increasingRef.current) {
+        radiusRef.current += 0.5;
+        if (radiusRef.current >= 180) increasingRef.current = false;
+      } else {
+        radiusRef.current -= 0.5;
+        if (radiusRef.current <= 120) increasingRef.current = true;
+      }
+
+      hero.style.setProperty("--r", `${radiusRef.current}px`);
+      animationFrame = requestAnimationFrame(pulse);
+    };
+
     hero.addEventListener("mousemove", handleMove);
     hero.addEventListener("touchmove", handleMove);
+
+    // inicializar centro por defecto
+    hero.style.setProperty("--x", "50%");
+    hero.style.setProperty("--y", "50%");
+    hero.style.setProperty("--r", "150px");
+
+    pulse();
 
     return () => {
       hero.removeEventListener("mousemove", handleMove);
       hero.removeEventListener("touchmove", handleMove);
+      cancelAnimationFrame(animationFrame);
     };
   }, []);
 
@@ -46,11 +73,11 @@ export default function Hero() {
       {/* Overlay oscuro */}
       <div className="absolute inset-0 bg-black/80" />
 
-      {/* Efecto linterna */}
+      {/* Efecto linterna con pulso */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `radial-gradient(circle 150px at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.25), transparent 80%)`,
+          background: `radial-gradient(circle var(--r, 150px) at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.25), transparent 80%)`,
           transition: "background 0.1s ease",
         }}
       />
