@@ -8,7 +8,6 @@ export default function AdminPanel() {
     description: "",
     price: "",
     image: "",
-    whatsapp: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -36,7 +35,6 @@ export default function AdminPanel() {
         description: "",
         price: "",
         image: "",
-        whatsapp: "",
       });
     } catch (error) {
       console.error("Error agregando producto: ", error);
@@ -85,15 +83,6 @@ export default function AdminPanel() {
             value={form.image}
             onChange={handleChange}
             placeholder="URL de la imagen"
-            required
-            className="w-full border border-gray-300 rounded-lg p-3"
-          />
-          <input
-            type="text"
-            name="whatsapp"
-            value={form.whatsapp}
-            onChange={handleChange}
-            placeholder="Número de WhatsApp (ej: 51987654321)"
             required
             className="w-full border border-gray-300 rounded-lg p-3"
           />
