@@ -16,7 +16,9 @@ export default function AdminProtected() {
     return () => unsubscribe();
   }, []);
 
-  if (loading) return <p className="text-center mt-20">Cargando...</p>;
+  if (loading) {
+    return <p className="text-center mt-20">Cargando...</p>;
+  }
 
   if (!user) {
     return <Login onLogin={() => setUser(auth.currentUser)} />;
@@ -24,8 +26,9 @@ export default function AdminProtected() {
 
   return (
     <div>
+      {/* Barra superior de administración */}
       <div className="flex justify-between items-center px-6 py-4 bg-gray-800 text-white">
-        <h1 className="text-lg">Panel de Administración</h1>
+        <h1 className="text-lg font-semibold">Panel de Administración</h1>
         <button
           onClick={() => signOut(auth)}
           className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg"
@@ -33,6 +36,8 @@ export default function AdminProtected() {
           Cerrar sesión
         </button>
       </div>
+
+      {/* Panel principal */}
       <AdminPanel />
     </div>
   );
