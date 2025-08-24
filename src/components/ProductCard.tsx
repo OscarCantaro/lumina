@@ -1,40 +1,56 @@
-type ProductProps = {
+import { motion } from "framer-motion";
+
+type Product = {
   id: string;
   name: string;
   description: string;
   price: number;
   image: string;
+  category: string;
 };
 
 export default function ProductCard({
-  name,
-  description,
-  price,
-  image,
-}: ProductProps) {
-  const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER;
-  const message = encodeURIComponent(
-    `Hola, estoy interesado en el producto "${name}" con precio S/ ${price}. ¿Podrían darme más información?`
-  );
+  product,
+  index,
+}: {
+  product: Product;
+  index: number;
+}) {
+  const phone = import.meta.env.VITE_WHATSAPP_NUMBER; // 🔹 desde .env
+  const handleBuy = () => {
+    const message = `Hola, me interesa el producto: ${product.name} - S/ ${product.price}`;
+    window.open(
+      `https://wa.me/${phone}?text=${encodeURIComponent(message)}`,
+      "_blank"
+    );
+  };
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-md flex flex-col hover:shadow-xl transition">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.2 }}
+      viewport={{ once: true }}
+      className="border rounded-lg p-4 shadow hover:shadow-lg transition bg-white"
+    >
       <img
-        src={image}
-        alt={name}
-        className="w-full h-48 object-cover rounded-md mb-4"
+        src={product.image}
+        alt={product.name}
+        className="h-48 w-full object-cover rounded-md mb-4"
       />
-      <h4 className="text-xl font-semibold mb-2">{name}</h4>
-      <p className="text-gray-600 mb-4">{description}</p>
-      <p className="text-lg font-bold mb-4">S/ {price}</p>
-      <a
-        href={`https://wa.me/${whatsappNumber}?text=${message}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-lg font-medium text-center"
+      <h3 className="text-xl font-semibold">{product.name}</h3>
+      <p className="text-gray-600">{product.description}</p>
+      <p className="font-bold text-indigo-600 mt-2">S/ {product.price}</p>
+      <p className="text-sm text-gray-500 mt-1">
+        Categoría: {product.category}
+      </p>
+
+      <button
+        onClick={handleBuy}
+        className="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg transition"
       >
         Comprar
-      </a>
-    </div>
+      </button>
+    </motion.div>
   );
 }
