@@ -31,7 +31,7 @@ export default function ProductCard({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.2 }}
       viewport={{ once: true }}
-      className="border rounded-lg p-4 shadow hover:shadow-lg transition bg-white"
+      className="flex flex-col rounded-xl p-4 shadow-md hover:shadow-xl transition bg-white"
     >
       <img
         src={product.image}
@@ -39,12 +39,9 @@ export default function ProductCard({
         className="h-48 w-full object-cover rounded-md mb-4"
       />
       <h3 className="text-xl font-semibold">{product.name}</h3>
+      <p className="text-sm text-gray-500 mt-1">{product.category}</p>
       <p className="text-gray-600">{product.description}</p>
-      <p className="font-bold text-indigo-600 mt-2">S/ {product.price}</p>
-      <p className="text-sm text-gray-500 mt-1">
-        Categoría: {product.category}
-      </p>
-
+      <p className="font-bold text-indigo-600 mt-4">S/ {product.price}</p>
       <button
         onClick={handleBuy}
         className="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg transition"

@@ -4,7 +4,7 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto grid gap-8 md:grid-cols-3">
         {/* Logo + descripción */}
         <div>
-          <h1 className="text-2xl font-bold text-white mb-3">LUMINA</h1>
+          <h1 className="text-2xl font-bold text-white mb-3">🏮 LUMINA</h1>
           <p className="text-sm text-gray-400">
             Iluminamos tu espacio con diseño y estilo futurista. Lámparas únicas
             para cada rincón de tu hogar.
@@ -49,12 +49,12 @@ export default function Footer() {
             <li>📧 contacto@lumina.com</li>
             <li>
               <a
-                href="https://wa.me/51987654321?text=Hola, quiero más info sobre las lámparas LUMINA"
+                href="https://wa.me/51967861327?text=Hola, quiero más info sobre las lámparas LUMINA"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-green-400 transition"
               >
-                📱 WhatsApp: +51 987 654 321
+                📱 WhatsApp: +51 967 861 327
               </a>
             </li>
           </ul>
