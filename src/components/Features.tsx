@@ -4,6 +4,11 @@ import { motion } from "framer-motion";
 export default function Features() {
   const features = [
     {
+      icon: <FaLightbulb className="text-indigo-500 text-4xl mb-4" />,
+      title: "Diseños únicos",
+      desc: "Lámparas modernas y exclusivas para iluminar con estilo.",
+    },
+    {
       icon: <FaTruck className="text-indigo-500 text-4xl mb-4" />,
       title: "Envío rápido",
       desc: "Recibe tus lámparas en la puerta de tu casa en tiempo récord.",
@@ -12,11 +17,6 @@ export default function Features() {
       icon: <FaShieldAlt className="text-indigo-500 text-4xl mb-4" />,
       title: "Garantía asegurada",
       desc: "Calidad certificada con garantía en cada producto.",
-    },
-    {
-      icon: <FaLightbulb className="text-indigo-500 text-4xl mb-4" />,
-      title: "Diseños únicos",
-      desc: "Lámparas modernas y exclusivas para iluminar con estilo.",
     },
   ];
 

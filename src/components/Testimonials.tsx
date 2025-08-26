@@ -18,10 +18,11 @@ export default function Testimonials() {
   ];
 
   return (
-    <section id="testimonials" className="py-16 px-6 bg-white">
+    <section id="testimonials" className="py-16 px-6 bg-indigo-50">
       <div className="max-w-6xl mx-auto text-center">
         <h3 className="text-3xl font-bold mb-12">
-          Lo que dicen nuestros clientes
+          Lo que dicen nuestros
+          <span className="text-indigo-600"> clientes</span>
         </h3>
 
         <div className="grid gap-8 md:grid-cols-3">

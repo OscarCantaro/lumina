@@ -85,12 +85,12 @@ export default function Hero() {
       {/* Contenido */}
       <div className="relative z-10">
         <h2 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
-          Ilumina tu espacio con{" "}
-          <span className="text-indigo-400">estilo futurista</span>
+          Ilumina tu espacio con
+          <span className="text-indigo-400"> estilo futurista</span>
         </h2>
         <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
           Lámparas modernas, minimalistas y únicas para darle vida a cada rincón
-          de tu hogar.
+          de tu hogar
         </p>
         <a
           href="#products"

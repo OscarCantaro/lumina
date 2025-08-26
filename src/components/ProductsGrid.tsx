@@ -33,7 +33,7 @@ export default function ProductsGrid() {
     : products;
 
   return (
-    <section className="py-16 px-6 bg-gray-50" id="products">
+    <section className="py-16 px-6 bg-gray-100" id="products">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold text-center mb-8">
           Nuestros <span className="text-indigo-600">Productos</span>

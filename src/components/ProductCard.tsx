@@ -41,10 +41,12 @@ export default function ProductCard({
       <h3 className="text-xl font-semibold">{product.name}</h3>
       <p className="text-sm text-gray-500 mt-1">{product.category}</p>
       <p className="text-gray-600">{product.description}</p>
-      <p className="font-bold text-indigo-600 mt-4">S/ {product.price}</p>
+      <p className="font-bold text-indigo-600 mt-4 text-2xl">
+        S/ {product.price}
+      </p>
       <button
         onClick={handleBuy}
-        className="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg transition"
+        className="mt-4 w-full bg-green-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg transition"
       >
         Comprar
       </button>

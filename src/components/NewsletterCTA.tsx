@@ -1,43 +1,27 @@
 import { useState } from "react";
-import {
-  GoogleReCaptchaProvider,
-  useGoogleReCaptcha,
-} from "react-google-recaptcha-v3";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { db } from "../firebase";
 
-const API_URL = import.meta.env.VITE_NEWSLETTER_API_URL;
-const SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
-
-function NewsletterForm() {
+export default function NewsletterCTA() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
-  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!executeRecaptcha) {
+    if (!email.includes("@")) {
       setStatus("error");
       return;
     }
 
     try {
-      // 🔹 Ejecutar reCAPTCHA invisible
-      const token = await executeRecaptcha("newsletter_signup");
-
-      const res = await fetch(API_URL, {
-        method: "POST",
-        body: JSON.stringify({ email, token }),
-        headers: { "Content-Type": "application/json" },
+      await addDoc(collection(db, "subscribers"), {
+        email,
+        createdAt: Timestamp.now(),
       });
-
-      if (res.ok) {
-        setStatus("success");
-        setEmail("");
-      } else {
-        setStatus("error");
-      }
-    } catch (err) {
-      console.error(err);
+      setStatus("success");
+      setEmail("");
+    } catch (error) {
+      console.error("Error al guardar suscripción:", error);
       setStatus("error");
     }
   };
@@ -45,7 +29,7 @@ function NewsletterForm() {
   return (
     <section
       id="contact"
-      className="py-16 px-6 bg-gradient-to-r from-indigo-600 to-purple-700 text-white text-center"
+      className="py-16 px-6 bg-gradient-to-r from-indigo-400 to-indigo-900 text-white text-center"
     >
       <div className="max-w-2xl mx-auto">
         {/* Título */}
@@ -55,12 +39,11 @@ function NewsletterForm() {
         </h3>
         <p className="mb-8 text-lg text-indigo-100">
           Suscríbete y recibe novedades, descuentos exclusivos y tips de
-          decoración con luz.
+          decoración.
         </p>
         {/* Formulario */}
+
         <form
-          name="newsletter"
-          id="newsletter-form"
           onSubmit={handleSubscribe}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
@@ -72,7 +55,6 @@ function NewsletterForm() {
             placeholder="Tu correo electrónico"
             className="px-4 py-3 rounded-lg text-gray-900 bg-amber-50 flex-grow focus:outline-none focus:ring-2 focus:ring-yellow-300"
           />
-
           <button
             type="submit"
             className="bg-yellow-400 text-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-300 transition"
@@ -80,6 +62,7 @@ function NewsletterForm() {
             Suscribirme
           </button>
         </form>
+
         {status === "success" && (
           <p className="mt-4 text-green-300">¡Gracias por suscribirte!</p>
         )}
@@ -87,16 +70,8 @@ function NewsletterForm() {
           <p className="mt-4 text-red-300">
             Hubo un error, inténtalo otra vez.
           </p>
-        )}{" "}
+        )}
       </div>
     </section>
-  );
-}
-
-export default function NewsletterCTA() {
-  return (
-    <GoogleReCaptchaProvider reCaptchaKey={SITE_KEY}>
-      <NewsletterForm />
-    </GoogleReCaptchaProvider>
   );
 }
