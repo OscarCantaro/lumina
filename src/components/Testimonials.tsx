@@ -1,19 +1,19 @@
 export default function Testimonials() {
   const testimonials = [
     {
-      name: "María López",
+      name: "Mary Legui",
       text: "Las lámparas de LUMINA transformaron mi sala. Excelente calidad y diseño único.",
-      image: "https://i.pravatar.cc/100?img=1",
+      image: "https://i.pravatar.cc/100?img=28",
     },
     {
-      name: "Carlos Fernández",
+      name: "Carolina Fernández",
       text: "Me encantó el servicio, la entrega fue rápida y el producto superó mis expectativas.",
-      image: "https://i.pravatar.cc/100?img=2",
+      image: "https://i.pravatar.cc/100?img=5",
     },
     {
       name: "Ana Torres",
       text: "Tenía dudas al inicio, pero ahora soy fan. Definitivamente volveré a comprar.",
-      image: "https://i.pravatar.cc/100?img=3",
+      image: "https://i.pravatar.cc/100?img=10",
     },
   ];
 
