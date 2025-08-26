@@ -57,7 +57,7 @@ export default function NewsletterCTA() {
         {/* Formulario */}
         <form
           onSubmit={handleSubscribe}
-          className="flex flex-col sm:flex-row gap-2 justify-center"
+          className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <input
             type="email"
