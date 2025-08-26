@@ -1,34 +1,38 @@
 import { useState } from "react";
-import type { FormEvent } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
+import {
+  GoogleReCaptchaProvider,
+  useGoogleReCaptcha,
+} from "react-google-recaptcha-v3";
 
 const API_URL = import.meta.env.VITE_NEWSLETTER_API_URL;
 const SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
-export default function NewsletterCTA() {
+function NewsletterForm() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
-  const handleSubscribe = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!captchaToken) {
+    if (!executeRecaptcha) {
       setStatus("error");
       return;
     }
 
     try {
+      // 🔹 Ejecutar reCAPTCHA invisible
+      const token = await executeRecaptcha("newsletter_signup");
+
       const res = await fetch(API_URL, {
         method: "POST",
-        body: JSON.stringify({ email, token: captchaToken }),
+        body: JSON.stringify({ email, token }),
         headers: { "Content-Type": "application/json" },
       });
 
       if (res.ok) {
         setStatus("success");
         setEmail("");
-        setCaptchaToken(null);
       } else {
         setStatus("error");
       }
@@ -46,32 +50,25 @@ export default function NewsletterCTA() {
       <div className="max-w-2xl mx-auto">
         {/* Título */}
         <h3 className="text-3xl font-bold mb-4">
-          Suscríbete y mantente
-          <span className="text-yellow-400"> conectado con LUMINA</span>
+          Suscríbete a nuestras
+          <span className="text-yellow-400"> novedades</span>
         </h3>
         <p className="mb-8 text-lg text-indigo-100">
           Suscríbete y recibe novedades, descuentos exclusivos y tips de
           decoración con luz.
         </p>
-
         {/* Formulario */}
         <form
           onSubmit={handleSubscribe}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
           <input
             type="email"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Ingresa tu correo electrónico"
+            placeholder="Tu correo electrónico"
             className="px-4 py-3 rounded-lg text-gray-900 flex-grow focus:outline-none focus:ring-2 focus:ring-yellow-300"
-          />
-
-          {/* 🔹 reCAPTCHA */}
-          <ReCAPTCHA
-            sitekey={SITE_KEY}
-            onChange={(token: string | null) => setCaptchaToken(token)}
           />
 
           <button
@@ -81,16 +78,23 @@ export default function NewsletterCTA() {
             Suscribirme
           </button>
         </form>
-
         {status === "success" && (
-          <p className="mt-2 text-green-300">¡Gracias por suscribirte!</p>
+          <p className="mt-4 text-green-300">¡Gracias por suscribirte!</p>
         )}
         {status === "error" && (
-          <p className="mt-2 text-red-300">
+          <p className="mt-4 text-red-300">
             Hubo un error, inténtalo otra vez.
           </p>
-        )}
+        )}{" "}
       </div>
     </section>
+  );
+}
+
+export default function NewsletterCTA() {
+  return (
+    <GoogleReCaptchaProvider reCaptchaKey={SITE_KEY}>
+      <NewsletterForm />
+    </GoogleReCaptchaProvider>
   );
 }
