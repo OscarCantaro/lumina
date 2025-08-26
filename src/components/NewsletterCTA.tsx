@@ -68,7 +68,7 @@ function NewsletterForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Tu correo electrónico"
-            className="px-4 py-3 rounded-lg text-gray-900 flex-grow focus:outline-none focus:ring-2 focus:ring-yellow-300"
+            className="px-4 py-3 rounded-lg text-gray-900 bg-amber-50 flex-grow focus:outline-none focus:ring-2 focus:ring-yellow-300"
           />
 
           <button
