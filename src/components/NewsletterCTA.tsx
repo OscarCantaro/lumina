@@ -59,6 +59,8 @@ function NewsletterForm() {
         </p>
         {/* Formulario */}
         <form
+          name="newsletter"
+          id="newsletter-form"
           onSubmit={handleSubscribe}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
