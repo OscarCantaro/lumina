@@ -36,7 +36,7 @@ export default function ProductCard({
       <img
         src={product.image}
         alt={product.name}
-        className="h-48 w-full object-cover rounded-md mb-4"
+        className="aspect-square w-full object-cover rounded-md mb-4"
       />
       <h3 className="text-xl font-semibold">{product.name}</h3>
       <p className="text-sm text-gray-500 mt-1">{product.category}</p>
